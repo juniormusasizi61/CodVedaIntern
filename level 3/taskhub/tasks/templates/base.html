@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>TaskHub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif;margin:0;background:#f7f7fb}
+    header, main{max-width:900px;margin:0 auto;padding:16px}
+    nav a{margin-right:12px;text-decoration:none;color:#334}
+    .card{background:white;border-radius:12px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.06);margin:16px 0}
+    .btn{display:inline-block;padding:.5rem .9rem;border-radius:8px;border:1px solid #ccd;background:#fff;cursor:pointer}
+    .btn.primary{background:#2f6fed;color:white;border-color:#2f6fed}
+    .muted{color:#6b7280}
+    form{display:grid;gap:10px}
+    input[type=text], input[type=password], input[type=email]{padding:10px;border:1px solid #ccd;border-radius:8px}
+    table{width:100%;border-collapse:collapse}
+    th,td{border-bottom:1px solid #eee;padding:10px;text-align:left}
+  </style>
+</head>
+<body>
+<header>
+  <nav>
+    <a href="{% url 'tasks:list' %}"><strong>TaskHub</strong></a>
+    {% if user.is_authenticated %}
+      <span class="muted">Hi, {{ user.username }}{% if user.is_superuser %} (admin){% endif %}</span>
+      <a href="{% url 'tasks:create' %}">New Task</a>
+      <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+      <a href="{% url 'login' %}">Login</a>
+      <a href="{% url 'signup' %}">Sign Up</a>
+    {% endif %}
+    <a href="{% url 'password_reset' %}">Reset Password</a>
+  </nav>
+</header>
+<main>
+  {% block content %}{% endblock %}
+</main>
+</body>
+</html>
